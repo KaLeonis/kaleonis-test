@@ -1,0 +1,84 @@
+<!doctype html5>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.5/utils/Draggable.min.js"></script>
+	
+	<script>
+		var draggables = [];
+		var info = [];
+		var currentStep = -1;
+		
+		function addCircle(x, y) {
+			var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+			c.setAttribute("cx", x);
+			c.setAttribute("cy", y);
+			c.setAttribute("r", 20);
+			c.setAttribute("fill", "red");
+			
+			document.getElementById("svg1").insertBefore(c, document.getElementById("pulsar1"));
+			
+			Draggable.create(c);
+			Draggable.get(c).disable();
+			draggables[draggables.length] = c;
+		}
+
+		function addCircleOnClick(e) {
+			addCircle(e.clientX - $('#svg1').offset().left, e.clientY - $('#svg1').offset().top);
+		}
+
+		function setAdd() {
+			document.getElementById("svg1").addEventListener("click", addCircleOnClick);
+		}
+		
+		function setSelect() {
+			document.getElementById("svg1").removeEventListener("click", addCircleOnClick);
+			
+			for (i = 0; i < draggables.length; i++) {
+				Draggable.get(draggables[i]).enable();
+			}
+		}
+		
+		function setMove() {
+			document.getElementById("svg1").removeEventListener("click", addCircleOnClick);
+		}
+		
+		function makeAMove() {
+			currentStep++;
+			TweenMax.to("#pulsar1", 1,
+					{attr:{cx:draggables[currentStep].getAttribute("cx"), cy:draggables[currentStep].getAttribute("cy")},
+					onComplete: function () {document.getElementById("img1").src = info[currentStep].s144;}});
+		}
+		
+		$(document).ready(function() {
+			addCircle(30, 30);
+			addCircle(90, 35);
+			addCircle(150, 40);
+			addCircle(210, 35);
+			addCircle(255, 30);
+			
+			info[info.length] = {s144:"https://lh5.googleusercontent.com/-Gho9w3vbfMM/UKfJ0H-5fYI/AAAAAAAAAXE/OCPz2OQ0SYs/s144/0D5J5399-500.jpg"}
+			info[info.length] = {s144:"https://lh5.googleusercontent.com/-38tW6tJg9xw/ULEo4YHKUZI/AAAAAAAAAX8/Viel1YUdnLo/s144/0D5J5310-500.jpg"}
+			info[info.length] = {s144:"https://lh5.googleusercontent.com/-203MN4f-9Ow/UOhAZdeXTuI/AAAAAAAAAa4/Bo_ZtJ1EPcI/s144/0D5J5899-500.jpg"}
+			info[info.length] = {s144:"https://lh4.googleusercontent.com/-CXN72hWs2iQ/UPHAaDQOyqI/AAAAAAAAAb4/69Ov4zzxDxI/s144/0D5J5667-500.jpg"}
+			info[info.length] = {s144:"https://lh3.googleusercontent.com/-8aLp9zl_5VM/UJ6lvj92J0I/AAAAAAAAAWI/9U5cGxQ_eoo/s144/0D5J5328-500.jpg"}
+			
+			makeAMove();
+		});
+
+		
+	</script>
+</head>
+<body>
+	<svg id="svg1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 		width="570px" height="150px" viewBox="0 0 570 150" xml:space="preserve"
+	 		style="border: 1px solid black">
+		<circle id="pulsar1" fill="blue" cx="30" cy="30" r="10" />
+	</svg>
+	<img id="img1" />
+	<br>
+	<button onClick="setSelect();">Select</button>
+	<button onClick="setAdd()">Add</button>
+	<button onClick="setMove();">Move</button>
+	<button onClick="makeAMove();">Make a move</button>
+</body>
