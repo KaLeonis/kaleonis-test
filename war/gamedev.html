@@ -1,5 +1,6 @@
-<!doctype html5>
+<!DOCTYPE html>
 <head>
+	<meta charset="utf-8" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.5/utils/Draggable.min.js"></script>
@@ -12,29 +13,26 @@
 			info[this.target.infoIndex].x = this.endX;
 			info[this.target.infoIndex].y = this.endY;
 			refreshInfoPanel();
-			console.log(this.target);
-			console.log(this.x + ":" + this.y);
 		}
 		
 		function addCircle(x, y) {
 			var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-			c.setAttribute("cx", 0);
-			c.setAttribute("cy", 0);
 			c.setAttribute("r", 20);
 			c.setAttribute("fill", "red");
 			
-			
 			document.getElementById("svg1").insertBefore(c, document.getElementById("pulsar1"));
-			//document.getElementById("svg1").appendChild(c);
 			
-			TweenMax.to(c, 1, {x:x, y:y});
-
 			c.infoIndex = info.length;
 			Draggable.create(c, {onDragEnd:circleOnDragEnd});
 			Draggable.get(c).disable();
 			info[info.length] = {x:x, y:y, el:c};
+			TweenMax.to(c, 0, {x:x, y:y});
 		}
 
+		function testOnClick() {
+			console.log("testOnClick")
+		}
+		
 		function addCircleOnClick(e) {
 			addCircle(e.clientX - $('#svg1').offset().left, e.clientY - $('#svg1').offset().top);
 		}
@@ -104,6 +102,7 @@
 	<button onClick="setAdd()">Add</button>
 	<button onClick="setMove();">Move</button>
 	<button onClick="makeAMove();">Make a move</button>
+	<button onClick="testOnClick();">Test</button>
 	<br>
 	<div id="infoPanel" style="border: 1px solid black">&nbsp;</div>
 </body>

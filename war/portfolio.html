@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+	
+	<script>
+		var info = [];
+		var pageN = 0;
+		
+		info[info.length] = {img_src_mini: "start.png"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/6514/185558581.0/0_907f2_7b7e3db3_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/6614/185558581.0/0_91284_708cc512_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/6514/185558581.0/0_91a1d_2e0a356_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/6418/185558581.0/0_91efb_f9407a42_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/4137/185558581.0/0_96e02_717c9243_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/5626/185558581.0/0_97b25_35b078d9_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/5633/185558581.0/0_9862c_91d66a1_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/5633/185558581.0/0_98cf7_5f2e57b4_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/5632/185558581.0/0_9a062_71654e0e_S"};
+		info[info.length] = {img_src_mini: "https://img-fotki.yandex.ru/get/6444/185558581.0/0_9aca9_bf7042d1_S"};
+		//info[info.length] = {img_src_mini: ""};
+		//info[info.length] = {img_src_mini: ""};
+		//info[info.length] = {img_src_mini: ""};
+		//info[info.length] = {img_src_mini: ""};
+		//info[info.length] = {img_src_mini: ""};
+		//info[info.length] = {img_src_mini: ""};
+		//info[info.length] = {img_src_mini: ""};
+				
+		
+		$(window).ready(function () {
+			var div1 = document.getElementById("div1");
+			
+			for (i = pageN * 9; i < (pageN + 1) * 9 && i < info.length; i++) {
+				var img = document.createElement("img");
+				img.src = info[i].img_src_mini;
+				div1.appendChild(img);
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="div1"></div>
+	<div>
+		<button>Prev 9</button>
+		<button>Next 9</button>
+	</div>
+</body>
