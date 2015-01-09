@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+	
+	<script>
+		var slider;
+		var slides;
+		var currentSlide = -1;
+		var prevSlide;
+		var prevPrevSlide;
+		//var timeline1;
+		
+		$(window).ready(function () {
+			slider = document.getElementById("slider1");
+			slides = [];
+			slides[0] = document.getElementById("slide1");
+			slides[1] = document.getElementById("slide2");
+			slides[2] = document.getElementById("slide3");
+			slides[3] = document.getElementById("slide4");
+			slides[4] = document.getElementById("slide5");
+			
+			TweenMax.to(slides[0], 0, {autoAlpha: 1});
+			
+			for (i = 1; i < slides.length; i++) {
+				TweenMax.to(slides[i], 0, {autoAlpha: 0});
+			}
+			timeline = new TimelineMax({onComplete:goToNextSlide, paused:true});
+			goToNextSlide();
+		});
+
+		function goToNextSlide() {
+			currentSlide++;
+			
+			if (currentSlide >= slides.length) {
+				currentSlide = 0;
+			}
+
+			if (currentSlide - 1 >= 0) {
+				prevSlide = currentSlide - 1;
+			} else {
+				prevSlide = currentSlide - 1 + slides.length;
+			}
+
+			if (currentSlide - 2 >= 0) {
+				prevPrevSlide = currentSlide - 2;
+			} else {
+				prevPrevSlide = currentSlide - 2 + slides.length;
+			}
+			
+			timeline.clear();
+			timeline.add(TweenMax.set(slides[prevPrevSlide], {autoAlpha: 0}));
+			timeline.add(TweenMax.set(slides[currentSlide].getElementsByTagName("span"), {height: 30}));
+			timeline.add(TweenMax.to(slides[currentSlide], 1, {autoAlpha: 1}));
+			timeline.add(TweenMax.to(slides[currentSlide], 1, {autoAlpha: 1}));
+			timeline.add(TweenMax.to(slides[currentSlide].getElementsByTagName("span"), 0.5, {height: 0}));
+			timeline.add(TweenMax.to(slides[currentSlide], 3.5, {autoAlpha: 1}));
+			
+			timeline.play(0);
+			updateZindex();
+		}
+
+		function updateZindex(){
+ 			for (i = 0; i < slides.length; i++) {
+ 	 			slides[i].style.zIndex = -1;
+			}
+ 			slides[currentSlide].style.zIndex = 2;
+ 			slides[prevSlide].style.zIndex = 1;
+		}
+
+	</script>
+
+ 	<style type="text/css">
+   		.slider {
+   			width: 500px;
+   			height: 300px;
+   			border: 1px solid black
+   		}
+   		
+   		.slide {
+   			position: absolute;
+   			width: 500px;
+   			height: 300px
+   		}
+   		
+   		.slideTitle {
+   			position:absolute;
+   			width:500px;
+   			height:30px;
+   			line-height:30px;
+   			vertical-align:middle;
+   			text-indent:10px;
+   			background-color:black;
+   			color:white;
+   			opacity:0.75;
+   			overflow: hidden
+   		}
+ 	</style>
+</head>
+<body>
+	<div id="slider1" class="slider">
+		<div id=slide1 class="slide">
+			<img style="position:absolute" src="https://lh4.googleusercontent.com/-SYwiWZ4sGv8/UWGToG9rT8I/AAAAAAAAAj8/6iANFNOv7c0/s500/0D5J5642-500x300.jpg" />
+			<span class="slideTitle">Slide 1</span>
+		</div>
+ 		<div id=slide2 class="slide">
+ 			<img style="position:absolute" src="https://lh4.googleusercontent.com/-eO0NpH848Lk/UTzMMgx2oII/AAAAAAAAAjA/6mWPWnhvlf8/s500/0D5J6043-500x300.jpg" />
+			<span class="slideTitle">Slide 2</span>
+ 		</div>
+		<div id=slide3 class="slide">
+			<img style="position:absolute" src="https://lh6.googleusercontent.com/-r7x-QuZ5gaA/UTOns8k0VEI/AAAAAAAAAiE/IEUguYbGpgI/s500/0D5J5662-500x300.jpg" />
+			<span class="slideTitle">Slide 3</span>
+		</div>
+		<div id=slide4 class="slide">
+			<img style="position:absolute" src="https://lh4.googleusercontent.com/-j0sF4ObJlYU/USpLeEp2VTI/AAAAAAAAAg4/xvXEHQdqSJg/s500/0D5J6021-500x300.jpg" />
+			<span class="slideTitle">Slide 4</span>
+		</div>
+		<div id=slide5 class="slide">
+			<img style="position:absolute" src="https://lh3.googleusercontent.com/-DCXbFWWIqig/URdEYFZ0PhI/AAAAAAAAAf8/_ErNZ5dzuIY/s500/0D5J5498-500x300.jpg" />
+			<span class="slideTitle">Slide 5</span>
+		</div>
+ 	</div>
+</body>
