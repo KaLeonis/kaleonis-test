@@ -20,8 +20,8 @@ public class Kaleoins_testServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("text/plain");
-		resp.getWriter().println("Hello, world");
-		resp.getWriter().println("Hello, Roman");
+		resp.getWriter().println("Hello, world (1)");
+		resp.getWriter().println("");
 
 		
 	//	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -85,11 +85,28 @@ public class Kaleoins_testServlet extends HttpServlet {
 		
 		//datastore.get(KeyFactory.createKey("slider", 5668600916475904))
 		//resp.getWriter().println("pq.countEntities() = " + pq.countEntities(null));
-		
+	/*	
 		for (Entity e : pq.asIterable()) {
 			Long num = (Long)e.getProperty("num"); 
 			String url = (String)e.getProperty("url"); 
 			String name = (String)e.getProperty("name");
+			resp.getWriter().println("num = " + num);
+			resp.getWriter().println("url = " + url);
+			resp.getWriter().println("name = " + name);
+			resp.getWriter().println("");
+		}
+*/
+		
+		Query photoQuery = new Query("Slider");
+		List<Entity> results = datastore.prepare(photoQuery).asList(FetchOptions.Builder.withLimit(5)); // withDefaults());		
+
+		int i = 0;
+		for (Entity e : results) {
+			i++;
+			Long num = (Long)e.getProperty("num"); 
+			String url = (String)e.getProperty("url"); 
+			String name = (String)e.getProperty("name");
+			resp.getWriter().println("--== " + i + " ==--");
 			resp.getWriter().println("num = " + num);
 			resp.getWriter().println("url = " + url);
 			resp.getWriter().println("name = " + name);

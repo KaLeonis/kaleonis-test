@@ -1,31 +1,140 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
-<!-- above set at the top of the file will set     -->
-<!-- the browser's rendering engine into           -->
-<!-- "Quirks Mode". Replacing this declaration     -->
-<!-- with a "Standards Mode" doctype is supported, -->
-<!-- but may lead to some differences in layout.   -->
-
+<!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.5/utils/Draggable.min.js"></script>
-
-
+    <meta charset="utf-8">
+    <title>Mogom</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+	
 	<script>
-		$(document).ready(function() {
-    		console.log("ready!");
-	 		var droppables = $(".box");
-	 		Draggable.create(droppables);
-		});
-	</script>
-  </head>
+		var slider;
+		var slides = [];
+		var currentSlide = -1;
+		var prevSlide;
+		var prevPrevSlide;
+		var timeline;
+		
+		$(window).ready(function () {
+			slider = document.getElementById("slider1");
+			slides = [];
+/* 			slides[0] = document.getElementById("slide1");
+			slides[1] = document.getElementById("slide2");
+			slides[2] = document.getElementById("slide3");
+			slides[3] = document.getElementById("slide4");
+			slides[4] = document.getElementById("slide5");
+ */
+			
+			$.getJSON("http://kaleonis-test.appspot.com/slider", function(data){
+				console.log(data);
+				for (i = 0; i < data.length; i++) {
+					var div1 = document.createElement("div");
+					div1.className = "slide";
+					
+					var img1 = document.createElement("img");
+					img1.style.position = "absolute";
+					img1.src = data[i].url;
+					div1.appendChild(img1);
+					
+					var span1 = document.createElement("span");
+					span1.className = "slideTitle";
+					span1.innerText = data[i].name;
+					div1.appendChild(span1);
+					
+					slider.appendChild(div1);
+					
+					slides[slides.length] = div1;
+				}  
 
-  <body>
-    <h1>Hello App Engine!</h1>
+				TweenMax.to(slides[0], 0, {autoAlpha: 1});
+				
+				for (i = 1; i < slides.length; i++) {
+					TweenMax.to(slides[i], 0, {autoAlpha: 0});
+				}
+				
+				timeline = new TimelineMax({onComplete:goToNextSlide, paused:true});
+				
+				goToNextSlide();
+				$("#slide1").remove();
+			});			
+			
+		});
+
+		function goToNextSlide() {
+			currentSlide++;
+			
+			if (currentSlide >= slides.length) {
+				currentSlide = 0;
+			}
+
+			if (currentSlide - 1 >= 0) {
+				prevSlide = currentSlide - 1;
+			} else {
+				prevSlide = currentSlide - 1 + slides.length;
+			}
+
+			if (currentSlide - 2 >= 0) {
+				prevPrevSlide = currentSlide - 2;
+			} else {
+				prevPrevSlide = currentSlide - 2 + slides.length;
+			}
+			
+			timeline.clear();
+			timeline.add(TweenMax.set(slides[prevPrevSlide], {autoAlpha: 0}));
+			timeline.add(TweenMax.set(slides[currentSlide].getElementsByTagName("span"), {height: 30}));
+			timeline.add(TweenMax.to(slides[currentSlide], 1, {autoAlpha: 1}));
+			timeline.add(TweenMax.to(slides[currentSlide], 1, {autoAlpha: 1}));
+			timeline.add(TweenMax.to(slides[currentSlide].getElementsByTagName("span"), 0.5, {height: 0}));
+			timeline.add(TweenMax.to(slides[currentSlide], 3.5, {autoAlpha: 1}));
+			
+			timeline.play(0);
+			updateZindex();
+		}
+
+		function updateZindex(){
+ 			for (i = 0; i < slides.length; i++) {
+ 	 			slides[i].style.zIndex = -1;
+			}
+ 			slides[currentSlide].style.zIndex = 2;
+ 			slides[prevSlide].style.zIndex = 1;
+		}
+
+	</script>
+
+ 	<style type="text/css">
+   		.slider {
+   			width: 500px;
+   			height: 300px;
+   			border: 1px solid black
+   		}
+   		
+   		.slide {
+   			position: absolute;
+   			width: 500px;
+   			height: 300px
+   		}
+   		
+   		.slideTitle {
+   			position:absolute;
+   			width:500px;
+   			height:30px;
+   			line-height:30px;
+   			vertical-align:middle;
+   			text-indent:10px;
+   			background-color:black;
+   			color:white;
+   			opacity:0.75;
+   			overflow: hidden
+   		}
+ 	</style>
+</head>
+<body>
+    <h1>Mogom!</h1>
+    
+	<div id="slider1" class="slider">
+ 		<div id=slide1 class="slide">
+			<img style="position:absolute" src="slide1.jpg" />
+		</div>
+ 	</div>
 	
     <table>
       <tr>
@@ -35,18 +144,14 @@
         <td><a href="kaleoins_test">Kaleoins_test</a></td>
       </tr>
       <tr>
+        <td><a href="guestbook">Guestbook</a></td>
+      </tr>
+      <tr>
       	<td><a href="game.html">Game</a></td>
       </tr>
       <tr>
       	<td><a href="gamedev.html">Game Dev</a></td>
       </tr>
     </table>
-    
-    <div>
-    	<img class="box" src="https://lh6.googleusercontent.com/-PgFGv85hRwQ/UN89xwQvZBI/AAAAAAAAAZ4/UcaeEo-XDH4/s144/0D5J5676-500.jpg" />
-    	<img class="box" src="https://lh5.googleusercontent.com/-rM0eBm8EGX4/UPwI-Lbp3UI/AAAAAAAAAdY/bszfk0ShepE/s144/0D5J5622-500.jpg" />
-    	<img class="box" src="https://lh5.googleusercontent.com/-38tW6tJg9xw/ULEo4YHKUZI/AAAAAAAAAX8/Viel1YUdnLo/s144/0D5J5310-500.jpg" />
-    </div>
-    
   </body>
 </html>
