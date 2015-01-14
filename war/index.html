@@ -17,14 +17,14 @@
 		$(window).ready(function () {
 			slider = document.getElementById("slider1");
 			slides = [];
-/* 			slides[0] = document.getElementById("slide1");
-			slides[1] = document.getElementById("slide2");
+ 			slides[0] = document.getElementById("slide1");
+/*			slides[1] = document.getElementById("slide2");
 			slides[2] = document.getElementById("slide3");
 			slides[3] = document.getElementById("slide4");
 			slides[4] = document.getElementById("slide5");
  */
 			
-			$.getJSON("http://kaleonis-test.appspot.com/slider", function(data){
+			$.getJSON("slidersrv", function(data){
 				console.log(data);
 				for (i = 0; i < data.length; i++) {
 					var div1 = document.createElement("div");
@@ -54,7 +54,7 @@
 				timeline = new TimelineMax({onComplete:goToNextSlide, paused:true});
 				
 				goToNextSlide();
-				$("#slide1").remove();
+				//$("#slide1").remove();
 			});			
 			
 		});
@@ -63,7 +63,7 @@
 			currentSlide++;
 			
 			if (currentSlide >= slides.length) {
-				currentSlide = 0;
+				currentSlide = 1;
 			}
 
 			if (currentSlide - 1 >= 0) {
@@ -138,19 +138,19 @@
 	
     <table>
       <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="kaleoins_test">Kaleoins_test</a></td>
-      </tr>
-      <tr>
-        <td><a href="guestbook">Guestbook</a></td>
+      	<td><a href="photolist.jsp">Photo List</a></td>
       </tr>
       <tr>
       	<td><a href="game.html">Game</a></td>
       </tr>
       <tr>
       	<td><a href="gamedev.html">Game Dev</a></td>
+      </tr>
+      <tr>
+        <td><a href="kaleoins_test">Kaleoins_test</a></td>
+      </tr>
+      <tr>
+        <td><a href="guestbook">Guestbook</a></td>
       </tr>
     </table>
   </body>

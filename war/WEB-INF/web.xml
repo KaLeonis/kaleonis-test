@@ -14,13 +14,23 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>slider</servlet-name>
+		<servlet-name>slidersrv</servlet-name>
 		<servlet-class>ru.mogom.SliderServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>slider</servlet-name>
-		<url-pattern>/slider</url-pattern>
+		<servlet-name>slidersrv</servlet-name>
+		<url-pattern>/slidersrv</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>photoeditsrv</servlet-name>
+		<servlet-class>ru.mogom.PhotoEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>photoeditsrv</servlet-name>
+		<url-pattern>/photoeditsrv</url-pattern>
+	</servlet-mapping>
+
 
 	<servlet>
 		<servlet-name>sign</servlet-name>
