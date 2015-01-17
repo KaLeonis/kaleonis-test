@@ -2,7 +2,7 @@
 
 .chronicle {
 	width: 500px;
-	height: 300px;
 	border: 1px solid black;
-	background: yellow
+	background: yellow;
+	margin:8px;
 }
