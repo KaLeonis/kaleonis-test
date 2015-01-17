@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+.slider {
+	width: 500px;
+	height: 300px;
+	border: 1px solid black
+}
+
+.slide {
+	position: absolute;
+	width: 500px;
+	height: 300px
+}
+
+.slideTitle {
+	position:absolute;
+	width:500px;
+	height:30px;
+	line-height:30px;
+	vertical-align:middle;
+	text-indent:10px;
+	background-color:black;
+	color:white;
+	opacity:0.75;
+	overflow: hidden
+}
