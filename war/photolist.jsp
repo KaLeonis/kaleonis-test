@@ -59,6 +59,7 @@
 	        pageContext.setAttribute("photoUrl500", photo.getProperty("url500"));
 	        pageContext.setAttribute("photoUrl500x300", photo.getProperty("url500x300"));
 	        pageContext.setAttribute("photoUrlOrig", photo.getProperty("urlOrig"));
+	        pageContext.setAttribute("photoDescription", photo.getProperty("description"));
 %>
     <table style="border:1px solid black">
     	<tr><td>id</td><td>${fn:escapeXml(photoId)}</td><td></td></tr>
@@ -71,6 +72,7 @@
     	<tr><td>url500</td><td>${fn:escapeXml(photoUrl500)}</td><td></td></tr>
     	<tr><td>url500x300</td><td>${fn:escapeXml(photoUrl500x300)}</td><td></td></tr>
     	<tr><td>urlOrig</td><td>${fn:escapeXml(photoUrlOrig)}</td><td></td></tr>
+    	<tr><td>description</td><td>${fn:escapeXml(photoDescription)}</td><td></td></tr>
     	<tr>
     		<td>
     			<form action="/photoedit.jsp" method="get" style="display:inline-block"><input type="hidden" name="id" value="${fn:escapeXml(photoId)}" /><input type="submit" name="action" value="Edit" /></form>

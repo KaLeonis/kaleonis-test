@@ -66,6 +66,7 @@ public class PhotoEditServlet extends HttpServlet {
 			Link url500 = new Link(req.getParameter("url500"));
 			Link url500x300 = new Link(req.getParameter("url500x300"));
 			Link urlOrig = new Link(req.getParameter("urlOrig"));
+			String description = req.getParameter("description");
 			
 			photo.setProperty("dateAdded", dateAdded);
 			photo.setProperty("dateTaken", dateTaken);
@@ -76,6 +77,7 @@ public class PhotoEditServlet extends HttpServlet {
 			photo.setProperty("url500", url500);
 			photo.setProperty("url500x300", url500x300);
 			photo.setProperty("urlOrig", urlOrig);
+			photo.setProperty("description", description);
 	
 			datastore.put(photo);
 		}

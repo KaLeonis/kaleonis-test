@@ -28,6 +28,7 @@
         pageContext.setAttribute("photoUrl500", "");
         pageContext.setAttribute("photoUrl500x300", "");
         pageContext.setAttribute("photoUrlOrig", "");
+        pageContext.setAttribute("photoDescription", "");
 	} else {
 	    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	    Key k = KeyFactory.createKey("Photo", Long.parseLong(request.getParameter("id")));
@@ -62,6 +63,7 @@
         pageContext.setAttribute("photoUrl500", photo.getProperty("url500"));
         pageContext.setAttribute("photoUrl500x300", photo.getProperty("url500x300"));
         pageContext.setAttribute("photoUrlOrig", photo.getProperty("urlOrig"));
+        pageContext.setAttribute("photoDescription", photo.getProperty("description"));
 }
 %>
 
@@ -77,6 +79,7 @@
     	<tr><td>url500</td><td><input type="text" name="url500" value="${fn:escapeXml(photoUrl500)}" /></td><td></td></tr>
     	<tr><td>url500x300</td><td><input type="text" name="url500x300" value="${fn:escapeXml(photoUrl500x300)}" /></td><td></td></tr>
     	<tr><td>urlOrig</td><td><input type="text" name="urlOrig" value="${fn:escapeXml(photoUrlOrig)}" /></td><td></td></tr>
+    	<tr><td>description</td><td><textarea name="description" rows="3" cols="60" value="${fn:escapeXml(photoDiscription)}"></textarea></td><td></td></tr>
 
     	<tr><td><% if (pageContext.getAttribute("photoId") == null || pageContext.getAttribute("photoId").equals("")) { %> <input type="submit" name="submit" value="Add" /> <% } else { %> <input type="submit" name="submit" value="Save" /> <% } %></td><td></td><td></td></tr>
     </table>
